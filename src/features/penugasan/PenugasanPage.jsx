@@ -9,7 +9,7 @@ export default function PenugasanPage() {
         experts, setPrintData, canManageAssignments, setModalConfig, setConfirmDialog, handleAssignmentAction
     } = useContext(AppContext);
 
-    const filteredAssignments = assignments.filter(asg => {
+    const filteredAssignments = (assignments || []).filter(asg => {
         // Filter pekerjaan berdasarkan status (Berjalan vs Riwayat Selesai)
         if (asg.endDate) {
             const today = new Date();
@@ -30,13 +30,13 @@ export default function PenugasanPage() {
             return false;
         }
 
-        const search = searchAssignmentTab.toLowerCase();
+        const search = (searchAssignmentTab || '').toLowerCase();
         const matchJob = (asg.jobName || '').toLowerCase().includes(search);
         const matchLpse = (asg.lpseName || '').toLowerCase().includes(search);
 
         const matchExpert = (asg.experts || []).some(expPlot => {
-            const exp = experts.find(e => e.id === expPlot.expertId);
-            const expertName = exp ? exp.name.toLowerCase() : '';
+            const exp = (experts || []).find(e => e.id === expPlot.expertId);
+            const expertName = exp?.name ? exp.name.toLowerCase() : '';
             return expertName.includes(search) || (expPlot.certificateName || '').toLowerCase().includes(search) || (expPlot.additionalCertificates || []).some(c => (c || '').toLowerCase().includes(search));
         });
 
@@ -208,8 +208,8 @@ export default function PenugasanPage() {
                                     ) : (
                                         <div className="space-y-2">
                                             {(asg.experts || []).map((expPlot, idx) => {
-                                                const exp = experts.find(e => e.id === expPlot.expertId);
-                                                const expertName = exp ? exp.name : 'Unknown';
+                                                const exp = (experts || []).find(e => e.id === expPlot.expertId);
+                                                const expertName = exp?.name || 'Unknown';
                                                 const certObj = exp ? (exp.certificates || []).find(c => c.certName === expPlot.certificateName) : null;
                                                 let certDisplay = certObj && certObj.certLevel ? `${expPlot.certificateName} (${certObj.certLevel})` : expPlot.certificateName;
                                                 (expPlot.additionalCertificates || []).forEach(addCert => {

@@ -33,7 +33,7 @@ export default function LogbookPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50 text-sm">
-                            {activityLogs.length > 0 ? activityLogs.map((log) => {
+                            {(activityLogs || []).length > 0 ? (activityLogs || []).map((log) => {
                                 let actionColor = 'text-slate-600 bg-slate-100 dark:text-slate-300 dark:bg-slate-800';
                                 if (log.action === 'LOGIN' || log.action === 'LOGOUT') actionColor = 'text-indigo-600 bg-indigo-100 dark:text-indigo-400 dark:bg-indigo-900/30';
                                 else if (log.action === 'ADD') actionColor = 'text-emerald-600 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-900/30';

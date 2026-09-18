@@ -63,11 +63,11 @@ export default function ProjectFormModal() {
         const checkPengawasan =
             formData.type === "Pengawasan" ||
             formData.type === "Manajemen Konstruksi";
-        const findBestPerson = (roleKeyword, excludeList, requiredLevel = null) => {
-            let candidates = resources.filter(
+        const findBestPerson = (roleKeyword, excludeList = [], requiredLevel = null) => {
+            let candidates = (resources || []).filter(
                 (r) =>
-                    r.role.toLowerCase().includes(roleKeyword.toLowerCase()) &&
-                    !excludeList.includes(r.name)
+                    (r.role || '').toLowerCase().includes((roleKeyword || '').toLowerCase()) &&
+                    !(excludeList || []).includes(r.name)
             );
             if (requiredLevel) {
                 candidates = candidates.filter((r) => r.level === requiredLevel);
@@ -447,10 +447,10 @@ export default function ProjectFormModal() {
         handleCrudAction(modalConfig.mode, "project", finalPayload);
     };
 
-    const filteredResources = resources.filter(
+    const filteredResources = (resources || []).filter(
         (res) =>
-            res.name.toLowerCase().includes(searchTeam.toLowerCase()) ||
-            res.role.toLowerCase().includes(searchTeam.toLowerCase())
+            (res.name || '').toLowerCase().includes((searchTeam || '').toLowerCase()) ||
+            (res.role || '').toLowerCase().includes((searchTeam || '').toLowerCase())
     );
     const isPengawasanForm =
         formData.type === "Pengawasan" ||
@@ -827,7 +827,7 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Tim Arsitek"
                                                             roleFilter={(r) =>
-                                                                r.role.toLowerCase().includes("arsitek")
+                                                                (r.role || '').toLowerCase().includes("arsitek")
                                                             }
                                                             isOptional={false}
                                                             filteredResources={filteredResources}
@@ -837,8 +837,8 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Tim Quantity Surveyor (QS)"
                                                             roleFilter={(r) =>
-                                                                r.role.toLowerCase() === "qs" ||
-                                                                r.role.toLowerCase().includes("quantity")
+                                                                (r.role || '').toLowerCase() === "qs" ||
+                                                                (r.role || '').toLowerCase().includes("quantity")
                                                             }
                                                             isOptional={false}
                                                             filteredResources={filteredResources}
@@ -848,7 +848,7 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Tim Struktur"
                                                             roleFilter={(r) =>
-                                                                r.role.toLowerCase().includes("struktur")
+                                                                (r.role || '').toLowerCase().includes("struktur")
                                                             }
                                                             isOptional={true}
                                                             filteredResources={filteredResources}
@@ -858,7 +858,7 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Tim MEP"
                                                             roleFilter={(r) =>
-                                                                r.role.toLowerCase().includes("mep")
+                                                                (r.role || '').toLowerCase().includes("mep")
                                                             }
                                                             isOptional={true}
                                                             filteredResources={filteredResources}
@@ -868,8 +868,8 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Tim Tata Ruang"
                                                             roleFilter={(r) =>
-                                                                r.role.toLowerCase().includes("tata ruang") ||
-                                                                r.role.toLowerCase().includes("planologi")
+                                                                (r.role || '').toLowerCase().includes("tata ruang") ||
+                                                                (r.role || '').toLowerCase().includes("planologi")
                                                             }
                                                             isOptional={true}
                                                             filteredResources={filteredResources}
@@ -879,16 +879,16 @@ export default function ProjectFormModal() {
                                                         <TeamCheckboxGroup
                                                             title="Lainnya"
                                                             roleFilter={(r) =>
-                                                                !r.role.toLowerCase().includes("arsitek") &&
+                                                                !(r.role || '').toLowerCase().includes("arsitek") &&
                                                                 !(
-                                                                    r.role.toLowerCase() === "qs" ||
-                                                                    r.role.toLowerCase().includes("quantity")
+                                                                    (r.role || '').toLowerCase() === "qs" ||
+                                                                    (r.role || '').toLowerCase().includes("quantity")
                                                                 ) &&
-                                                                !r.role.toLowerCase().includes("struktur") &&
-                                                                !r.role.toLowerCase().includes("mep") &&
+                                                                !(r.role || '').toLowerCase().includes("struktur") &&
+                                                                !(r.role || '').toLowerCase().includes("mep") &&
                                                                 !(
-                                                                    r.role.toLowerCase().includes("tata ruang") ||
-                                                                    r.role.toLowerCase().includes("planologi")
+                                                                    (r.role || '').toLowerCase().includes("tata ruang") ||
+                                                                    (r.role || '').toLowerCase().includes("planologi")
                                                                 )
                                                             }
                                                             isOptional={true}

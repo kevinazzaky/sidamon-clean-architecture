@@ -32,13 +32,13 @@ export default function RoleManagerModal() {
                                 Jabatan Proyek {type}
                             </h3>
                             <div className="flex flex-wrap gap-2 mb-4">
-                                {(roleList[type] || []).map((r, i) => (
+                                {(roleList?.[type] || []).map((r, i) => (
                                     <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg text-sm text-slate-700 dark:text-slate-300">
                                         <span>{r}</span>
                                         <button onClick={() => {
                                             const updated = {
                                                 ...roleList,
-                                                [type]: roleList[type].filter((_, idx) => idx !== i)
+                                                [type]: (roleList?.[type] || []).filter((_, idx) => idx !== i)
                                             };
                                             setRoleList(updated);
                                             userService.saveRoleList(updated);
@@ -51,10 +51,11 @@ export default function RoleManagerModal() {
                             <form onSubmit={(e) => {
                                 e.preventDefault();
                                 const val = e.target.newRole.value.trim();
-                                if (val && !roleList[type].includes(val)) {
+                                const currentRoles = roleList?.[type] || [];
+                                if (val && !currentRoles.includes(val)) {
                                     const updated = {
                                         ...roleList,
-                                        [type]: [...roleList[type], val]
+                                        [type]: [...currentRoles, val]
                                     };
                                     setRoleList(updated);
                                     userService.saveRoleList(updated);

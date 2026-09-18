@@ -53,12 +53,12 @@ export default function ManajemenPenggunaPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                            {usersList.length === 0 ? (
+                            {(usersList || []).length === 0 ? (
                                 <tr>
                                     <td colSpan="3" className="px-6 py-8 text-center text-slate-500">Memuat data pengguna...</td>
                                 </tr>
                             ) : (
-                                usersList.map((usr) => (
+                                (usersList || []).map((usr) => (
                                     <tr key={usr.uid} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">

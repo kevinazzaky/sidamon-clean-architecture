@@ -76,7 +76,7 @@ export default function ModalContainer() {
                 {modalConfig.isOpen && isInventoryType && (
                     <InventoryFormModal key="modal-inventory" />
                 )}
-                {modalConfig.isOpen && modalConfig.type === 'resource' && (
+                {modalConfig.isOpen && (modalConfig.type === 'resource' || modalConfig.type === 'team') && (
                     <ResourceFormModal key="modal-resource" />
                 )}
                 {modalConfig.isOpen && modalConfig.type === 'expert' && (

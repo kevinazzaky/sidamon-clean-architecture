@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import Icon from '../components/Icon';
 
 export default function AlertModal({ alertModal, setAlertModal }) {
-    if (!alertModal.isOpen) return null;
+    if (!alertModal?.isOpen) return null;
     return (
         <AnimatePresence>
             <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">

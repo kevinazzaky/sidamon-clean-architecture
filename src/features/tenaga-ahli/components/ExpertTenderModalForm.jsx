@@ -16,7 +16,7 @@ export default function ExpertTenderModalForm() {
     } = useContext(AppContext);
 
     const { expertId, tenderIndex, tender } = modalConfig.data || {};
-    const expert = experts.find(e => e.id === expertId);
+    const expert = (experts || []).find(e => e.id === expertId);
     const isEdit = modalConfig.mode === 'edit';
 
     const [formData, setFormData] = useState(() => {
@@ -32,7 +32,7 @@ export default function ExpertTenderModalForm() {
         if (formData.status === 'Aktif' || formData.status === 'Menunggu Pengumuman') {
             const existingActive = (expert.tenders || []).find((t, idx) =>
                 (!isEdit || idx !== tenderIndex) &&
-                t.lpseName.trim().toLowerCase() === formData.lpseName.trim().toLowerCase() &&
+                (t.lpseName || '').trim().toLowerCase() === (formData.lpseName || '').trim().toLowerCase() &&
                 (t.status === 'Aktif' || t.status === 'Menunggu Pengumuman')
             );
 

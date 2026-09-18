@@ -77,10 +77,10 @@ export default function AssignmentModalForm() {
                 return;
             }
 
-            const expertObj = experts.find(e => e.id === exp.expertId);
+            const expertObj = (experts || []).find(e => e.id === exp.expertId);
             const expertName = expertObj ? expertObj.name : 'Tenaga Ahli';
 
-            const existingAssignmentsInSameLpse = assignments.filter(asg => {
+            const existingAssignmentsInSameLpse = (assignments || []).filter(asg => {
                 if (isEdit && asg.id === formData.id) return false;
                 if ((asg.lpseName || '').trim().toLowerCase() !== (formData.lpseName || '').trim().toLowerCase()) return false;
 

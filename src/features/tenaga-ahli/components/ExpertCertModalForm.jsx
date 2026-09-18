@@ -15,7 +15,7 @@ export default function ExpertCertModalForm() {
     } = useContext(AppContext);
 
     const { expertId, certIndex, cert } = modalConfig.data || {};
-    const expert = experts.find(e => e.id === expertId);
+    const expert = (experts || []).find(e => e.id === expertId);
     const isEdit = modalConfig.mode === 'edit';
 
     const [formData, setFormData] = useState(() => {
@@ -87,7 +87,7 @@ export default function ExpertCertModalForm() {
                                 className="w-full p-3 rounded-xl border border-slate-200 dark:border-slate-700/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-sm bg-slate-50/50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-200 shadow-inner transition-all"
                             />
                             <datalist id="cert-options">
-                                {certList.map((cert, idx) => <option key={idx} value={cert} />)}
+                                {(certList || []).map((cert, idx) => <option key={idx} value={cert} />)}
                             </datalist>
                         </div>
                         <div>

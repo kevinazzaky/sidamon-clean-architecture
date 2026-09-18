@@ -51,7 +51,7 @@ export default function SOPPage() {
                 <div className="flex-1 flex items-center justify-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
                 </div>
-            ) : sopDocuments.length === 0 ? (
+            ) : (sopDocuments || []).length === 0 ? (
                 <div className="flex-1 flex flex-col items-center justify-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-[2rem] border border-slate-100 dark:border-slate-700/50 p-8 text-center">
                     <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center mb-4 shrink-0">
                         <Icon name="file-text" size={40} className="text-indigo-400" />
@@ -61,7 +61,7 @@ export default function SOPPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-6 overflow-y-auto custom-scrollbar pr-2">
-                    {sopDocuments.map(doc => (
+                    {(sopDocuments || []).map(doc => (
                         <div key={doc.id} className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow group flex flex-col h-full">
                             <div className="flex-1 flex flex-col">
                                 <div className="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 shrink-0">
@@ -73,7 +73,7 @@ export default function SOPPage() {
                                 <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-700/50">
                                     <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
                                         <span>Diunggah oleh:</span>
-                                        <span className="font-medium">{doc.uploadedBy.split('@')[0]}</span>
+                                        <span className="font-medium">{(doc.uploadedBy || 'User').split('@')[0]}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
                                         <span>Ukuran:</span>

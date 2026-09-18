@@ -6,9 +6,10 @@ import { calculateLeaderKPI, calculateEmployeeKPI } from '../../shared/utils/pro
 export default function KPIPage() {
     const { resources, computedProjects, searchKPITab, setSearchKPITab, setShowKPIInfoModal } = useContext(AppContext);
 
-    const leaders = resources.filter(r => r.level === 'Team Leader');
-    const kordinators = resources.filter(r => r.level?.startsWith('Kordinator Divisi'));
-    const staffs = resources.filter(r => r.level !== 'Team Leader' && !r.level?.startsWith('Kordinator Divisi'));
+    const safeResources = resources || [];
+    const leaders = safeResources.filter(r => r.level === 'Team Leader');
+    const kordinators = safeResources.filter(r => r.level?.startsWith('Kordinator Divisi'));
+    const staffs = safeResources.filter(r => r.level !== 'Team Leader' && !r.level?.startsWith('Kordinator Divisi'));
 
     const allKpiDataLeaders = leaders.map(res => {
         const kpi = calculateLeaderKPI(res, computedProjects);
@@ -44,16 +45,18 @@ export default function KPIPage() {
         return b.avgProgress - a.avgProgress;
     };
 
+    const search = (searchKPITab || '').toLowerCase();
+
     const kpiDataLeaders = allKpiDataLeaders
-        .filter(res => res.name.toLowerCase().includes(searchKPITab.toLowerCase()) || res.role.toLowerCase().includes(searchKPITab.toLowerCase()))
+        .filter(res => (res.name || '').toLowerCase().includes(search) || (res.role || '').toLowerCase().includes(search))
         .sort(sortKpiData);
 
     const kpiDataKordinators = allKpiDataKordinators
-        .filter(res => res.name.toLowerCase().includes(searchKPITab.toLowerCase()) || res.role.toLowerCase().includes(searchKPITab.toLowerCase()))
+        .filter(res => (res.name || '').toLowerCase().includes(search) || (res.role || '').toLowerCase().includes(search))
         .sort(sortKpiData);
 
     const kpiDataStaffs = allKpiDataStaffs
-        .filter(res => res.name.toLowerCase().includes(searchKPITab.toLowerCase()) || res.role.toLowerCase().includes(searchKPITab.toLowerCase()))
+        .filter(res => (res.name || '').toLowerCase().includes(search) || (res.role || '').toLowerCase().includes(search))
         .sort(sortKpiData);
 
     const allKpiCombined = [...allKpiDataLeaders, ...allKpiDataKordinators, ...allKpiDataStaffs];

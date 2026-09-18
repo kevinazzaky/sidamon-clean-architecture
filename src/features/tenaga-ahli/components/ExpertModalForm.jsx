@@ -122,7 +122,7 @@ export default function ExpertModalForm() {
                                 className="w-full p-3 rounded-xl border border-indigo-200 dark:border-indigo-700/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-sm bg-indigo-50/30 dark:bg-indigo-900/10 text-slate-800 dark:text-slate-200 shadow-inner transition-all"
                             />
                             <datalist id="internal-resources-list">
-                                {resources.map(r => (
+                                {(resources || []).map(r => (
                                     <option key={r.id || r.name} value={r.name}>{r.name} ({r.role})</option>
                                 ))}
                             </datalist>
