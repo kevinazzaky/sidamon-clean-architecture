@@ -4,14 +4,14 @@ import 'firebase/compat/auth';
 import 'firebase/compat/storage';
 
 const firebaseConfig = {
-    authDomain: "project-management-control.firebaseapp.com",
-    databaseURL: "https://project-management-control-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "project-management-control",
-    storageBucket: "project-management-control.firebasestorage.app",
-    messagingSenderId: "1065130749964",
-    appId: "1:1065130749964:web:404873304275127c85fe29",
-    measurementId: "G-LLNQ6P9DQ9",
-    apiKey: "AIzaSyDerRfccB2e-k3SSLoo5gxh10sRy9FRRwY" // WAJIB DIISI UNTUK LOGIN
+    apiKey: "AIzaSyCO_f6iz-J0Y1Xah1IdQDZnsbGfB5qi8ZM",
+    authDomain: "sidamon-dev.firebaseapp.com",
+    databaseURL: "https://sidamon-dev-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "sidamon-dev",
+    storageBucket: "sidamon-dev.firebasestorage.app",
+    messagingSenderId: "811013712428",
+    appId: "1:811013712428:web:820700e91b6eeb8aef7f89",
+    measurementId: "G-PNBQ6TS4QX"
 };
 
 if (!firebase.apps.length) {
