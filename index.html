@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+  window.onerror = function(message, source, lineno, colno, error) {
+    const errorDiv = document.createElement('div');
+    errorDiv.style.position = 'fixed';
+    errorDiv.style.top = '0';
+    errorDiv.style.left = '0';
+    errorDiv.style.width = '100%';
+    errorDiv.style.padding = '20px';
+    errorDiv.style.background = 'red';
+    errorDiv.style.color = 'white';
+    errorDiv.style.zIndex = '999999';
+    errorDiv.style.fontSize = '16px';
+    errorDiv.style.fontFamily = 'monospace';
+    errorDiv.innerHTML = '<h2>CLIENT-SIDE ERROR CAUSING BLANK SCREEN:</h2><p>' + message + '</p><pre>' + (error ? error.stack : '') + '</pre>';
+    document.body.appendChild(errorDiv);
+    return false;
+  };
+  
+  window.addEventListener("unhandledrejection", function(event) {
+    const errorDiv = document.createElement('div');
+    errorDiv.style.position = 'fixed';
+    errorDiv.style.bottom = '0';
+    errorDiv.style.left = '0';
+    errorDiv.style.width = '100%';
+    errorDiv.style.padding = '20px';
+    errorDiv.style.background = 'darkred';
+    errorDiv.style.color = 'white';
+    errorDiv.style.zIndex = '999999';
+    errorDiv.style.fontSize = '16px';
+    errorDiv.style.fontFamily = 'monospace';
+    errorDiv.innerHTML = '<h2>UNHANDLED PROMISE REJECTION:</h2><p>' + (event.reason ? event.reason.message : event.reason) + '</p><pre>' + (event.reason ? event.reason.stack : '') + '</pre>';
+    document.body.appendChild(errorDiv);
+  });
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>SIDAMON Gaharu Sempana Group</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+        // Menonaktifkan Service Worker untuk membersihkan cache agresif
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Service Worker lama dihapus!');
+                } 
+            });
+        }
+    </script>
+</body>
+</html>
