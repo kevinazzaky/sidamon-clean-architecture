@@ -53,24 +53,26 @@ export default function ProyekPage() {
         return 40;
     };
 
-    const filteredAndSortedProjects = computedProjects
+    const filteredAndSortedProjects = (computedProjects || [])
         .filter(p => {
-            const searchLower = searchProjectTab.toLowerCase();
-            const matchesSearch = p.name.toLowerCase().includes(searchLower) ||
-                p.client.toLowerCase().includes(searchLower) ||
-                p.id.toLowerCase().includes(searchLower) ||
+            if (!p) return false;
+            const searchLower = (searchProjectTab || '').toLowerCase();
+            const matchesSearch = 
+                (p.name && p.name.toLowerCase().includes(searchLower)) ||
+                (p.client && p.client.toLowerCase().includes(searchLower)) ||
+                (p.id && String(p.id).toLowerCase().includes(searchLower)) ||
                 (p.teamLeader && p.teamLeader.toLowerCase().includes(searchLower)) ||
-                (p.team && p.team.some(member => member.toLowerCase().includes(searchLower))) ||
-                (p.surveyorTeam && p.surveyorTeam.some(member => member.toLowerCase().includes(searchLower)));
+                (p.team && Array.isArray(p.team) && p.team.some(member => member && member.toLowerCase().includes(searchLower))) ||
+                (p.surveyorTeam && Array.isArray(p.surveyorTeam) && p.surveyorTeam.some(member => member && member.toLowerCase().includes(searchLower)));
 
             let matchesType = true;
-            if (filterProjectType !== 'Semua Tipe') {
+            if (filterProjectType && filterProjectType !== 'Semua Tipe') {
                 if (filterProjectType === 'Perencanaan') {
-                    matchesType = p.type?.toLowerCase().includes('perencana');
+                    matchesType = p.type ? p.type.toLowerCase().includes('perencana') : false;
                 } else if (filterProjectType === 'Pengawasan') {
-                    matchesType = p.type?.toLowerCase().includes('pengawas');
+                    matchesType = p.type ? p.type.toLowerCase().includes('pengawas') : false;
                 } else if (filterProjectType === 'Manajemen Konstruksi') {
-                    matchesType = p.type?.toLowerCase().includes('manajemen konstruksi');
+                    matchesType = p.type ? p.type.toLowerCase().includes('manajemen konstruksi') : false;
                 } else {
                     matchesType = p.type === filterProjectType;
                 }

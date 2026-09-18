@@ -165,6 +165,8 @@ export default function AppProvider({ children }) {
     // Search filters
     const [searchTeamTab, setSearchTeamTab] = useState("");
     const [searchProjectTab, setSearchProjectTab] = useState("");
+    const [filterProjectType, setFilterProjectType] = useState("Semua Tipe");
+    const [projectPage, setProjectPage] = useState(1);
     const [searchKPITab, setSearchKPITab] = useState("");
     const [searchGanttTab, setSearchGanttTab] = useState("");
     const [searchInvTab, setSearchInvTab] = useState("");
@@ -1216,6 +1218,15 @@ export default function AppProvider({ children }) {
 
         // Proyek
         canCreateProject,
+        canDeleteProject,
+        canEditProjectAdmin,
+        canEditProjectTechnical,
+        searchProjectTab,
+        setSearchProjectTab,
+        filterProjectType,
+        setFilterProjectType,
+        projectPage,
+        setProjectPage,
         handleAnalyzeDomino,
         handleResumeProject,
         handleToggleNotStarted,
