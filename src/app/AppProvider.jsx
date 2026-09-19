@@ -80,7 +80,6 @@ export default function AppProvider({ children }) {
     const [adminAsetFilter, setAdminAsetFilter] = useState('Semua');
     const [adminAsetSearch, setAdminAsetSearch] = useState('');
     const [adminAsetModal, setAdminAsetModal] = useState({ isOpen: false, mode: 'add', data: null });
-    const [adminAsetConfirm, setAdminAsetConfirm] = useState({ isOpen: false, item: null, action: null });
     const [adminAsetFormData, setAdminAsetFormData] = useState({});
 
     // Print & Report States
@@ -1168,8 +1167,6 @@ export default function AppProvider({ children }) {
         canManageAsset,
         adminAsetModal,
         setAdminAsetModal,
-        adminAsetConfirm,
-        setAdminAsetConfirm,
 
         // Tim
         errorMsg,

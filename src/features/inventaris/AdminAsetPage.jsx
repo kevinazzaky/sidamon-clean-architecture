@@ -9,7 +9,7 @@ export default function AdminAsetPage() {
     const {
         inventory, adminAsetFilter, setAdminAsetFilter, adminAsetSearch, setAdminAsetSearch,
         canManageAsset, adminAsetFormData, setAdminAsetFormData, adminAsetModal, setAdminAsetModal,
-        adminAsetConfirm, setAdminAsetConfirm, loading, setConfirmDialog
+        loading, setConfirmDialog
     } = useContext(AppContext);
 
     const handleAdminAsetInventoryAction = async (action, payload) => {
@@ -96,59 +96,6 @@ export default function AdminAsetPage() {
                 handleAdminAsetInventoryAction('verify', updatedItem);
             }
         });
-    };
-
-    const handleAdminAsetConfirmAction = () => {
-        const item = adminAsetConfirm.item;
-        if (!item) return;
-
-        if (adminAsetConfirm.action === 'delete') {
-            handleAdminAsetInventoryAction('delete', item);
-        } else if (adminAsetConfirm.action === 'reject') {
-            const updatedItem = {
-                ...item,
-                status: 'Tersedia',
-                borrower: null,
-                borrowDate: null,
-                returnDate: null,
-                projectAssigned: null
-            };
-            handleAdminAsetInventoryAction('verify', updatedItem);
-        } else if (adminAsetConfirm.action === 'accept_return') {
-            const updatedItem = {
-                ...item,
-                status: 'Tersedia',
-                lastBorrower: item.borrower,
-                lastBorrowDate: item.borrowDate,
-                borrower: null,
-                borrowDate: null,
-                returnDate: null,
-                projectAssigned: null
-            };
-            handleAdminAsetInventoryAction('verify', updatedItem);
-        } else if (adminAsetConfirm.action === 'reject_return') {
-            const updatedItem = {
-                ...item,
-                status: 'Dipinjam'
-            };
-            handleAdminAsetInventoryAction('verify', updatedItem);
-        } else if (adminAsetConfirm.action === 'accept_extend') {
-            const updatedItem = {
-                ...item,
-                status: 'Dipinjam',
-                returnDate: item.newReturnDate
-            };
-            delete updatedItem.newReturnDate;
-            handleAdminAsetInventoryAction('verify', updatedItem);
-        } else if (adminAsetConfirm.action === 'reject_extend') {
-            const updatedItem = {
-                ...item,
-                status: 'Dipinjam'
-            };
-            delete updatedItem.newReturnDate;
-            handleAdminAsetInventoryAction('verify', updatedItem);
-        }
-        setAdminAsetConfirm({ isOpen: false, item: null, action: null });
     };
 
     const handleAdminAsetSubmit = (e) => {

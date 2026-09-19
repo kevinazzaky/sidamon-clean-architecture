@@ -117,10 +117,8 @@ export default function MasterSchedulePage() {
                             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Daftar Proyek</span>
                         </div>
                         <div className="flex flex-col">
-                            {displayedProjects.map((p) => {
-                                const isDone = p.status === 'Done';
-                                return (
-                                    <div key={p.id} className="h-14 border-b border-slate-100 dark:border-slate-800/50 flex items-center px-4 hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
+                            {displayedProjects.map((p) => (
+                                <div key={p.id} className="h-14 border-b border-slate-100 dark:border-slate-800/50 flex items-center px-4 hover:bg-slate-50 dark:hover:bg-slate-900/30 transition-colors">
                                         <div className="flex flex-col min-w-0">
                                             <span className="text-sm font-bold text-slate-700 dark:text-slate-300 line-clamp-2 leading-tight" title={p.name}>{p.name}</span>
                                             <span className="text-[10px] text-slate-500 font-semibold mt-0.5">
@@ -128,8 +126,7 @@ export default function MasterSchedulePage() {
                                             </span>
                                         </div>
                                     </div>
-                                )
-                            })}
+                            ))}
                         </div>
                     </div>
 

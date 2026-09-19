@@ -1,7 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 import 'firebase/compat/auth';
-import 'firebase/compat/storage';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCO_f6iz-J0Y1Xah1IdQDZnsbGfB5qi8ZM",
@@ -20,6 +19,5 @@ if (!firebase.apps.length) {
 
 export const db = firebase.database();
 export const auth = firebase.auth();
-export const storage = firebase.storage();
 auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(console.error);
 export default firebase;
