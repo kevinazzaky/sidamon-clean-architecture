@@ -6,8 +6,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "checkJs": false,
-    "skipLibCheck": true,
-    "baseUrl": "."
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
