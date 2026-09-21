@@ -10,25 +10,20 @@ export default function PenugasanPage() {
     } = useContext(AppContext);
 
     const filteredAssignments = (assignments || []).filter(asg => {
-        // Filter pekerjaan berdasarkan status (Berjalan vs Riwayat Selesai)
+        const isAllTerminsSelesai = asg.termins && asg.termins.length > 0 && asg.termins.every(t => t.status === 'Selesai');
+        let isCompleted = isAllTerminsSelesai;
+
         if (asg.endDate) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const end = new Date(asg.endDate);
             end.setHours(0, 0, 0, 0);
 
-            const isCompleted = end < today;
-            const isAllTerminsSelesai = asg.termins && asg.termins.length > 0 && asg.termins.every(t => t.status === 'Selesai');
-
-            // Arsipkan otomatis jika SEMUA termin yang didaftarkan sudah selesai
-            if (isAllTerminsSelesai) return false;
-
-            if (assignmentTabFilter === "active" && isCompleted) return false;
-            if (assignmentTabFilter === "completed" && !isCompleted) return false;
-        } else if (assignmentTabFilter === "completed") {
-            // Jika tidak ada endDate, maka dianggap belum selesai (Sedang Berjalan)
-            return false;
+            if (end < today) isCompleted = true;
         }
+
+        if (assignmentTabFilter === "active" && isCompleted) return false;
+        if (assignmentTabFilter === "completed" && !isCompleted) return false;
 
         const search = (searchAssignmentTab || '').toLowerCase();
         const matchJob = (asg.jobName || '').toLowerCase().includes(search);
