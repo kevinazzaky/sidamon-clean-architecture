@@ -259,6 +259,7 @@ export default function AppProvider({ children }) {
         const mapped = resources.map(res => {
             let numProjects = 0;
             let numActiveProjects = 0;
+            let numProjectsLed = 0;
 
             computedProjects.forEach(p => {
                 if (p.notStarted) return;
@@ -272,6 +273,7 @@ export default function AppProvider({ children }) {
 
                     if (fuzzyMatchName(p.teamLeader, res.name)) {
                         numProjects++;
+                        numProjectsLed++;
                         if (p.computedStatus !== 'Pending') numActiveProjects++;
                     } else if ((p.team || []).some(m => fuzzyMatchName(m, res.name))) {
                         let isIndividuallyDone = p.individualStatus?.[res.name] === true;
@@ -297,7 +299,7 @@ export default function AppProvider({ children }) {
                 }
             });
             const workload = numActiveProjects * 25;
-            return { ...res, projects: numProjects, workload };
+            return { ...res, projects: numProjects, projectsLed: numProjectsLed, workload };
         });
 
         return mapped.sort((a, b) => b.workload - a.workload);
