@@ -24,7 +24,7 @@ export default function InventoryPage() {
                 <div className="flex gap-2">
                     {borrowCart.length > 0 && (
                         <button
-                            onClick={() => setModalConfig({ isOpen: true, type: 'inventory-cart', mode: 'borrow-cart', data: null })}
+                            onClick={() => setModalConfig({ isOpen: true, type: 'inventory-cart', mode: 'borrow-cart', data: borrowCart })}
                             className="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-colors shadow-sm text-sm"
                         >
                             <Icon name="shopping-cart" size={18} /> Pinjam {borrowCart.length} Alat
