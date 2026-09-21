@@ -8,6 +8,7 @@ export default function InventoryFormModal() {
         modalConfig,
         setModalConfig,
         handleInventoryAction,
+        borrowCart,
         loading
     } = useContext(AppContext);
 
@@ -41,8 +42,11 @@ export default function InventoryFormModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (modalConfig.mode === "borrow-cart") {
+            const selectedIds = (Array.isArray(modalConfig.data) && modalConfig.data.length > 0)
+                ? modalConfig.data
+                : (borrowCart || []);
             handleInventoryAction("borrow-cart", {
-                selectedIds: modalConfig.data,
+                selectedIds,
                 data: {
                     borrower: formData.borrower,
                     borrowDate: formData.borrowDate || new Date().toISOString().split("T")[0],
@@ -173,7 +177,7 @@ export default function InventoryFormModal() {
                             <div className="grid grid-cols-1 gap-4">
                                 <div className="p-3 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/50 rounded-xl mb-2">
                                     <p className="text-xs text-indigo-800 dark:text-indigo-300">
-                                        Anda akan meminjam <strong className="font-bold">{modalConfig.data?.length || 0} alat sekaligus</strong>. Data formulir ini akan diaplikasikan ke semua alat yang Anda pilih.
+                                        Anda akan meminjam <strong className="font-bold">{(Array.isArray(modalConfig.data) && modalConfig.data.length > 0 ? modalConfig.data.length : borrowCart?.length) || 0} alat sekaligus</strong>. Data formulir ini akan diaplikasikan ke semua alat yang Anda pilih.
                                     </p>
                                 </div>
                                 <div>
