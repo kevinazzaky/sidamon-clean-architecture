@@ -557,8 +557,11 @@ export default function AppProvider({ children }) {
             if (action === 'add') {
                 newData.push(payload);
             } else if (action === 'borrow-cart') {
+                const targetIds = Array.isArray(payload?.selectedIds) && payload.selectedIds.length > 0
+                    ? payload.selectedIds
+                    : (borrowCart || []);
                 newData = newData.map(item => {
-                    if (payload.selectedIds.includes(item.id)) {
+                    if (targetIds.includes(item.id)) {
                         return { ...item, status: 'Menunggu Verifikasi', ...payload.data };
                     }
                     return item;
