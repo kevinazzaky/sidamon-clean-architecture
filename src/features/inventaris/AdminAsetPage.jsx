@@ -23,7 +23,6 @@ export default function AdminAsetPage() {
         }
         await inventoryService.saveInventory(newData);
         setAdminAsetModal({ isOpen: false, mode: 'add', data: null });
-        setAdminAsetConfirm({ isOpen: false, item: null, action: null });
     };
 
     const handleAdminAsetVerify = (item) => {
